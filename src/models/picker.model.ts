@@ -7,3 +7,5 @@ export const PickerSchema = z.object({
 });
 
 export type Picker = z.infer<typeof PickerSchema>;
+export const CreatePicker = (input: z.input<typeof PickerSchema>): Picker =>
+  PickerSchema.parse(input);

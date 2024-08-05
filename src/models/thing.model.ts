@@ -7,3 +7,5 @@ export const ThingSchema = z.object({
 });
 
 export type Thing = z.infer<typeof ThingSchema>;
+export const CreateThing = (input: z.input<typeof ThingSchema>): Thing =>
+  ThingSchema.parse(input);
