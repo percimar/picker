@@ -1,8 +1,8 @@
 import express from 'express';
-import votes from './votes';
+import picker from './picker';
 
 const router = express.Router();
 
-router.use('/votes', votes);
+router.use('/picker', picker);
 
 export default router;

@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import ErrorResponse from './interfaces/ErrorResponse';
+import { ZodError, ZodIssue } from 'zod';
 
 export function notFound(req: Request, res: Response, next: NextFunction) {
   res.status(404);
@@ -10,13 +10,21 @@ export function notFound(req: Request, res: Response, next: NextFunction) {
 export function errorHandler(
   err: Error,
   _req: Request,
-  res: Response<ErrorResponse>,
-  _next: NextFunction,
+  res: Response,
+  _: NextFunction,
 ) {
-  const statusCode = res.statusCode !== 200 ? res.statusCode : 500;
-  res.status(statusCode);
-  res.json({
-    message: err.message,
-    stack: process.env.NODE_ENV === 'production' ? '🥞' : err.stack,
-  });
+  if (err instanceof ZodError) {
+    const errorMessages = err.errors.map(
+      (issue: ZodIssue) => `${issue.message} at ${issue.path.join('.')}`,
+    );
+    res
+      .status(400)
+      .json({ success: false, error: 'Invalid data', details: errorMessages });
+  } else {
+    console.error(err.stack);
+    res
+      .status(500)
+      .setHeader('Content-Type', 'application/json')
+      .send(err.message);
+  }
 }
