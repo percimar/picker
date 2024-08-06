@@ -1,9 +1,9 @@
 import express from 'express';
 import { CreatePickerSchema } from '../dtos/create-picker.dto';
+import { PickerIdSchema } from '../dtos/picker-id.dto';
+import { SubmitVoteSchema } from '../dtos/submit-vote.dto';
 import { PickerService } from '../services/picker.service';
 import { CreatePickerResponse } from '../types/create-picker.response';
-import { PickerSchema } from '../models/picker.model';
-import { SubmitVoteSchema } from '../dtos/submit-vote.dto';
 
 const router = express.Router();
 
@@ -20,7 +20,7 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/:pickerId', async (req, res) => {
-  const pickerId = PickerSchema.shape.id.parse(req.route.pickerId);
+  const { pickerId } = PickerIdSchema.parse(req.params);
 
   const picker = await PickerService.findById(pickerId);
 
@@ -28,10 +28,10 @@ router.get('/:pickerId', async (req, res) => {
 });
 
 router.post('/:pickerId/vote', async (req, res) => {
-  const pickerId = PickerSchema.shape.id.parse(req.route.pickerId);
+  // const pickerId = PickerSchema.shape.id.parse(req.route.pickerId);
   const submitVoteDto = SubmitVoteSchema.parse(req.body);
 
-  await PickerService.submitVote(pickerId, submitVoteDto);
+  await PickerService.submitVote(submitVoteDto);
 
   res.sendStatus(200);
 });
