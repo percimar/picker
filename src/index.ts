@@ -7,7 +7,7 @@ import * as middlewares from './middlewares';
 
 require('dotenv').config();
 
-const app = express();
+export const app = express();
 
 app.use(morgan('dev'));
 app.use(helmet());
