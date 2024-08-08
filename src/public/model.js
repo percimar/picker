@@ -4,41 +4,6 @@ const PICKER_ID = '1234';
 const saveThings = (things) =>
   localStorage.setItem(THINGS_KEY, JSON.stringify(things));
 const getThings = () => JSON.parse(localStorage.getItem(THINGS_KEY));
-const createPicker = () => {
-  const stringData = document.getElementById('textBox').innerHTML;
-  const things = stringData.split('\n');
-  saveThings(things.map((name, id) => ({ id, name, score: 0 })));
-  function ensureButtons() {
-    const existingVoterButton = document.getElementById('voterButton');
-    const existingResultsButton = document.getElementById('resultsButton');
-
-    if (!existingVoterButton) {
-      const voterLink = document.getElementById('voterLink');
-      const voterButton = document.createElement('button');
-      voterButton.id = 'voterButton';
-      voterButton.innerHTML = 'Go to voter page!';
-      voterButton.onclick = () => {
-        window.location.href = `/vote?pickerId=${PICKER_ID}`;
-      };
-      voterLink.appendChild(voterButton);
-    }
-
-    if (!existingResultsButton) {
-      const resultsLink = document.getElementById('resultsLink');
-      const resultsButton = document.createElement('button');
-      resultsButton.id = 'resultsButton';
-      resultsButton.innerHTML = 'Go to results page!';
-      resultsButton.onclick = () => {
-        window.location.href = `/results?pickerId=${PICKER_ID}`;
-      };
-      resultsLink.appendChild(resultsButton);
-    }
-  }
-
-  ensureButtons();
-};
-const voterButton = document.getElementById('voterPage');
-voterButton.addEventListener('click', createPicker);
 // vote can be "like" or "dislike"
 const submitVote = (pickerId, thingId, vote) => {
   if (!thingId && thingId !== 0)
@@ -64,3 +29,45 @@ const submitVote = (pickerId, thingId, vote) => {
 const getPickerData = (pickerId) => {
   return { things: getThings(pickerId) };
 };
+var counter = 0;
+const nextMovie = (something) => {
+  const listOfMovies = localStorage.getItem('things');
+  const screen = document.getElementById('pick');
+  if (listOfMovies !== null) {
+    const retrievedArray = JSON.parse(listOfMovies);
+    screen.innerHTML = retrievedArray[counter].name;
+    console.log(retrievedArray[counter].name);
+    counter = counter + something;
+    console.log(counter);
+    return retrievedArray[counter].id;
+  }
+};
+nextMovie(0);
+const urlSearchParams = new URLSearchParams(window.location.search);
+const pickerId = urlSearchParams.get('pickerId');
+const like = document.getElementById('like');
+like.addEventListener('click', (event) => {
+  if (event.currentTarget.id === 'like') {
+    id = nextMovie(1);
+    submitVote(pickerId, id, event.currentTarget.id);
+  } else {
+    console.log('button not found');
+  }
+});
+const dislike = document.getElementById('dislike');
+dislike.addEventListener('click', (event) => {
+  if (event.currentTarget.id === 'dislike') {
+    id = nextMovie(1);
+    submitVote(pickerId, id, event.currentTarget.id);
+  } else {
+    console.log('button not found');
+  }
+});
+const skip = document.getElementById('skip');
+skip.addEventListener('click', (event) => {
+  if (event.currentTarget.id === 'skip') {
+    id = nextMovie(1);
+  } else {
+    console.log('button not found');
+  }
+});
