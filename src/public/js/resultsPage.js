@@ -8,7 +8,7 @@
 
   const resultsTable = document.getElementById('resultsTable');
   picker.things
-    .sort((a, b) => a.score - b.score)
+    .sort((a, b) => b.score - a.score)
     .forEach(({ name, score }, idx) => {
       const tr = document.createElement('tr');
       tr.innerHTML = `<td>${idx + 1}</td><td>${name}</td><td>${score}</td>`;
