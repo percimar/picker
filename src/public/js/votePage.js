@@ -1,3 +1,12 @@
+const shuffleArray = (array) => {
+  for (var i = array.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+};
+
 const urlSearchParams = new URLSearchParams(window.location.search);
 const pickerId = urlSearchParams.get('pickerId');
 
@@ -5,12 +14,13 @@ const pickerId = urlSearchParams.get('pickerId');
   // Get Picker Data
   const getPickerDataResponse = await getPickerData(pickerId);
   const picker = await getPickerDataResponse.json();
+  const things = shuffleArray(picker.things);
 
   // Initialize State
   const state = { currentIdx: null };
 
   // State getters and mutators
-  const getCurrentThing = () => picker.things[state.currentIdx];
+  const getCurrentThing = () => things[state.currentIdx];
   const getNextThing = () => {
     if (state.currentIdx === null) {
       state.currentIdx = 0;
