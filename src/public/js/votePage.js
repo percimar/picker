@@ -5,6 +5,7 @@ const shuffleArray = (array) => {
     array[i] = array[j];
     array[j] = temp;
   }
+  return array;
 };
 
 const urlSearchParams = new URLSearchParams(window.location.search);
