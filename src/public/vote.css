@@ -1,0 +1,78 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: #c8c8c8;
+}
+#header {
+  height: 8vh;
+  background: royalblue;
+  border-bottom: 2px solid black;
+}
+#title {
+  display: flex;
+  justify-content: center;
+}
+#subBody {
+  height: 90vh;
+  /* border: 1px solid red; */
+}
+#picksMain {
+  /* border: 1px solid; */
+  height: 90%;
+}
+#picksSub {
+  margin-top: 5%;
+  /* border: 1px solid red; */
+  height: 80%;
+  display: flex;
+  justify-content: center;
+}
+#pickScreen {
+  border: 2px solid;
+  height: 100%;
+  width: 20%;
+  display: flex;
+  justify-content: center;
+}
+#pick {
+  height: 50%;
+  width: 100%;
+  margin-top: 50%;
+  /* border: 1px solid; */
+  font-size: 30px;
+  text-align: center;
+}
+#buttonsDiv {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 3%;
+  /* border: 1px solid black; */
+  width: 50%;
+  height: 10%;
+  margin-left: 25%;
+}
+#buttonsDiv > button {
+  background: none;
+  border: none;
+  border: 2px solid black;
+  border-radius: 100px;
+  width: 10%;
+  will-change: transform;
+  transition: transform 500ms;
+}
+#buttonsDiv > button:hover {
+  transition: transform 350ms;
+  transform: translateY(-10px);
+  background-color: #b8b8b8;
+  transition: background-color 0.5s;
+}
+#buttonsDiv > button:active {
+  background-color: #696969;
+}
+button > img {
+  width: 40px;
+  height: 40px;
+}
