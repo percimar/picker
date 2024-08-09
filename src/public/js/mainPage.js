@@ -11,7 +11,7 @@ const createPicker = async () => {
     voterButton.id = 'voterButton';
     voterButton.innerHTML = 'Go to voter page!';
     voterButton.onclick = () => {
-      window.location.href = resultsLink;
+      window.location.href = voterLink;
     };
     voterLink.appendChild(voterButton);
   }
@@ -23,7 +23,7 @@ const createPicker = async () => {
     resultsButton.id = 'resultsButton';
     resultsButton.innerHTML = 'Go to results page!';
     resultsButton.onclick = () => {
-      window.location.href = voterLink;
+      window.location.href = resultsLink;
     };
     resultsLink.appendChild(resultsButton);
   }
