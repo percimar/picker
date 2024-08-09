@@ -13,8 +13,8 @@ router.post('/', async (req, res) => {
 
   const response: CreatePickerResponse = {
     id: picker.id,
-    voterLink: `${process.env.HOST}/vote?pickerId=${picker.id}`,
-    resultsLink: `${process.env.HOST}/results?pickerId=${picker.id}`,
+    voterLink: `https://asmar.dev/picker/vote.html?pickerId=${picker.id}`,
+    resultsLink: `https://asmar.dev/picker/results.html?pickerId=${picker.id}`,
   };
   res.json(response);
 });
