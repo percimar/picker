@@ -28,10 +28,10 @@ router.get('/:pickerId', async (req, res) => {
 });
 
 router.post('/:pickerId/vote', async (req, res) => {
-  // const pickerId = PickerSchema.shape.id.parse(req.route.pickerId);
+  const { pickerId } = PickerIdSchema.parse(req.params);
   const submitVoteDto = SubmitVoteSchema.parse(req.body);
 
-  await PickerService.submitVote(submitVoteDto);
+  await PickerService.submitVote(pickerId, submitVoteDto);
 
   res.sendStatus(200);
 });
