@@ -38,7 +38,7 @@ const pickerId = urlSearchParams.get('pickerId');
     if (nextThing) {
       screen.innerHTML = nextThing.name;
     } else {
-      screen.innerHTML = `That's all, thanks for voting! <a href="/results.html?pickerId=${picker.id}">Results</a>`;
+      screen.innerHTML = `That's all, thanks for voting! <a href="./results.html?pickerId=${picker.id}">Results</a>`;
       document.getElementById('like').disabled = true;
       document.getElementById('dislike').disabled = true;
       document.getElementById('skip').disabled = true;
