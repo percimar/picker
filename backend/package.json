@@ -1,17 +1,12 @@
 {
-  "name": "democracy",
+  "name": "picker",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.ts",
   "scripts": {
-    "start": "ts-node src/index.ts",
+    "start": "ts-node dist/src/index.js",
     "start:dev": "nodemon src/index.ts",
-    "build": "tsc",
-    "start:dist": "node dist/src/index.js",
-    "lint": "eslint --fix src test",
-    "test": "jest",
-    "test:dev": "jest --watchAll",
-    "typecheck": "tsc --noEmit"
+    "build": "npx swc src -d dist"
   },
   "keywords": [],
   "author": "percimar",
@@ -27,6 +22,8 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@swc/cli": "^0.5.0",
+    "@swc/core": "^1.9.1",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/jest": "^29.5.12",
