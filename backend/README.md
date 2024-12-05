@@ -1,7 +1,5 @@
 # Picker
 
-A tool to make preferential voting easy. Enter a list of options, send out voter links, and see how everyone swiped.
-
 ## Setup
 
 Install dependencies
@@ -17,6 +15,24 @@ cp .env.sample .env
 ```
 
 Finally,
+
+```
+npm start
+```
+
+## Lint
+
+```
+npm run lint
+```
+
+## Test
+
+```
+npm run test
+```
+
+## Development
 
 ```
 npm run dev
