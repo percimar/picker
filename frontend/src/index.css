@@ -3,6 +3,10 @@
 @tailwind utilities;
 @layer base {
   :root {
-    --radius: 0.5rem
+    --radius: 0.5rem;
+  }
+
+  .root-container {
+    @apply shadow-purple-glow container mx-auto my-8 max-w-xs rounded-lg bg-slate-900 p-4 text-white sm:max-w-sm md:my-16 md:max-w-md md:p-8 lg:max-w-lg;
   }
 }

@@ -7,9 +7,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/Form";
+import { LinkToCopy } from "@/components/ui/LinkToCopy";
 import { Textarea } from "@/components/ui/Textarea";
+import { createPicker, CreatePickerResponse } from "@/lib/api";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 const formSchema = z.object({
@@ -32,47 +36,63 @@ export const CreatorPage = () => {
       things: [],
     },
   });
+  const [picker, setPicker] = useState<CreatePickerResponse | null>();
 
-  const onSubmit = (values: FormValues) => {
-    console.log(values);
+  const onSubmit = async (values: FormValues) => {
+    const createdPicker = await createPicker(values.things);
+    setPicker(createdPicker);
+    toast.success("Picker Created!");
   };
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="shadow-purple-glow container mx-auto my-8 min-w-96 max-w-max space-y-4 rounded-lg bg-slate-900 p-4 text-white md:my-16 md:space-y-8 md:p-8"
-      >
-        <div>
-          <div className="text-2xl font-semibold tracking-tight">Picker</div>
-          <div className="text-sm font-light text-gray-300">
-            Preferential voting made easy
+    <div className="root-container">
+      {picker ? (
+        <div className="space-y-4 md:space-y-8">
+          <div className="text-2xl font-semibold tracking-tight">
+            Picker Details
           </div>
+          <LinkToCopy label="Voter Link" value={picker.voterLink} />
+          <LinkToCopy label="Results Link" value={picker.resultsLink} />
+          {/* TODO: Back to home */}
         </div>
-        <FormField
-          control={form.control}
-          name="things"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-lg">Choices</FormLabel>
-              <FormControl>
-                <Textarea
-                  placeholder={`Option A
-Option B
-Option C`}
-                  className="resize-none text-black"
-                  rows={5}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit" className="bg-green-500 hover:bg-green-600">
-          Create
-        </Button>
-      </form>
-    </Form>
+      ) : (
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-4 md:space-y-8"
+          >
+            <div>
+              <div className="text-2xl font-semibold tracking-tight">
+                Picker
+              </div>
+              <div className="text-sm font-light text-gray-300">
+                Preferential voting made easy
+              </div>
+            </div>
+            <FormField
+              control={form.control}
+              name="things"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-lg">Choices</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder={`Option A\nOption B\nOption C`}
+                      className="resize-none text-black"
+                      rows={5}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button type="submit" className="bg-green-500 hover:bg-green-600">
+              Create
+            </Button>
+          </form>
+        </Form>
+      )}
+    </div>
   );
 };

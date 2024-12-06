@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import { Toaster } from "sonner";
 
 export const Layout = () => (
   <>
@@ -9,5 +10,6 @@ export const Layout = () => (
       </div>
     </div>
     <Outlet />
+    <Toaster richColors />
   </>
 );
