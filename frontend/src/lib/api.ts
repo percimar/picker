@@ -1,14 +1,10 @@
 const basePath = import.meta.env.VITE_BACKEND_URL;
 
-export type CreatePickerResponse = {
+export type Picker = {
   id: number;
-  voterLink: string;
-  resultsLink: string;
 };
 
-export const createPicker = async (
-  things: string[],
-): Promise<CreatePickerResponse> => {
+export const createPicker = async (things: string[]): Promise<Picker> => {
   const response = await fetch(`${basePath}/picker`, {
     method: "POST",
     headers: {
@@ -31,5 +27,7 @@ export const submitVote = (pickerId: string, thingId: string, vote: string) =>
     body: JSON.stringify({ thingId, vote }),
   });
 
-export const getPickerData = (pickerId: string) =>
-  fetch(`${basePath}/picker/${pickerId}`);
+export const getPickerData = async (pickerId: string): Promise<Picker> => {
+  const response = await fetch(`${basePath}/picker/${pickerId}`);
+  return response.json();
+};
