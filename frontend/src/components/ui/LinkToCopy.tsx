@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/cn";
 import { CheckCircle2, Clipboard } from "lucide-react";
 import { useState } from "react";
 import { Button } from "./Button";

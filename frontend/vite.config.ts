@@ -5,7 +5,7 @@ import path from "path";
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "picker",
+  base: "/picker",
   plugins: [react(), checker({ typescript: { buildMode: true } })],
   resolve: {
     alias: {

@@ -28,7 +28,7 @@ export const createPicker = async (things: string[]): Promise<Picker> => {
 export const getThings = (pickerId: string) =>
   fetch(`${basePath}/picker/${pickerId}`);
 
-export const submitVote = (pickerId: string, thingId: string, vote: string) =>
+export const submitVote = (pickerId: string, thingId: number, vote: string) =>
   fetch(`${basePath}/picker/${pickerId}/vote`, {
     method: "POST",
     headers: {
